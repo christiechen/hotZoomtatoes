@@ -3,9 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Hot Zoomtatoes Timer</title>
+    <link href="style.css" rel = "stylesheet"/>
 </head>
-<body> 
-    hello world;
+<body id="body"> 
+    <div class = "center" id="everything">
+        <button class="center" id="coverButton"> cover </button>
+        <button class="center" id="startTimer"> start </button>
+        <div id="timerBox">
+            <form class = "center" id="timerVals">
+                <label for = "maxSeconds"> Maximum Seconds </label>
+                <input id="maxSeconds"/>
+                <label for = "minSeconds"> Minimum Seconds </label>
+                <input id="minSeconds"/>
+            </form>
+            <div id="cover"></div>
+            <div class="center" id="timer">
+                <span id="minutes"> 00 </span>
+                <span>: </span>
+                <span id="seconds"> 00 </span>
+            </div>
+        </div>
+        <button class="center" id="stopButton"> stop </button>
+    </div>
+    <script src= "timer.js"> </script>
 </body>
 </html>

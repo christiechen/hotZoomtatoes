@@ -1,0 +1,51 @@
+#everything{
+    height: fit-content;
+    width:fit-content;
+    /* border:1px solid red; */
+    margin-top:250px;
+
+}
+
+input{
+    display:block;
+    width:150px;
+    text-align: center;
+}
+
+.center{
+    margin-left:auto;
+    margin-right:auto;
+}
+
+form{
+    /* border: 1px solid red; */
+    width:fit-content;
+    margin-top:20px;
+}
+
+button{
+    display:block;
+}
+
+input{
+    margin-bottom:30px;
+}
+
+#timer{
+    width:fit-content;
+    height: fit-content;
+    /* border:1px solid black ; */
+    font-size: 7em;
+}
+
+#cover{
+    position: absolute;
+    width:310px;
+    height:130px;
+    background-color: grey;
+    border-radius: 15px;
+}
+
+#stopButton, #startTimer{
+    margin-top: 10px;
+}
