@@ -8,7 +8,7 @@ var imageWidth;
 
 
 var banjo = document.getElementById("banjo");
-banjo.volume = 0.2;
+banjo.volume = 0.3;
 var mins = document.getElementById("minutes");
 var secs = document.getElementById("seconds");
 var pLeft = document.getElementById("potatoLeft");
@@ -84,12 +84,7 @@ function startCountdown(){
 
 
 
-    imageWidth = imageWidthDefault;
-    pRight.style.width = imageWidth + "px";
-    pLeft.style.width = imageWidth + "px";
-
-    pRight.style.visibility = "visible";
-    pLeft.style.visibility = "visible";
+    
 
     var maxSec = parseInt(maxSec);
     var minSec = parseInt(minSec);
@@ -102,6 +97,16 @@ function startCountdown(){
         stop.click()
         return;
     }
+
+
+    imageWidth = imageWidthDefault;
+    pRight.style.width = imageWidth + "px";
+    pLeft.style.width = imageWidth + "px";
+
+    pRight.style.visibility = "visible";
+    pLeft.style.visibility = "visible";
+
+
 
     console.log(maxSec);
     var time = minSec + Math.floor(Math.random() * (maxSec-minSec + 1));
@@ -171,7 +176,6 @@ function countdownMin(){
         }
         else{
             if(minute>0){
-                console.log("zero min");
                 red = false;
             }
             else if(!red && seconds < warning){
