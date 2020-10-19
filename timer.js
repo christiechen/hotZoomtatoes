@@ -1,17 +1,24 @@
-var warning = 20;
+var warningDefault = 30;
+var warning; 
+var runOut = 0;
+var count = 0;
+var baseline = 5;
 
-var start = document.getElementById("startTimer");
-start.addEventListener("click", function(){
-    startCountdown()
-}, false);
+var banjo = document.getElementById("banjo");
+banjo.volume = 0.3;
 var mins = document.getElementById("minutes");
 var secs = document.getElementById("seconds");
 var stop = document.getElementById("stopButton");
 stop.style.visibility = "hidden";
 var body = document.getElementById("body");
 
+var start = document.getElementById("startTimer");
+start.addEventListener("click", function(){
+    startCountdown();
+}, false);
+
 var opacity = 0;
-body.style.backgroundColor = "rgba(255,0,0," + opacity + ")";
+// body.style.backgroundColor = "rgba(255,0,0," + opacity + ")";
 
 document.getElementById("coverButton").addEventListener("click", function(){
     var stat = document.getElementById("cover").style.visibility;
@@ -26,26 +33,57 @@ document.getElementById("coverButton").addEventListener("click", function(){
 
 
 function startCountdown(){
-    console.log("here");
+    warning = warningDefault;    
 
+    console.log("here");
     
     var maxSec = document.getElementById("maxSeconds").value;
     var minSec = document.getElementById("minSeconds").value;
+    body.style.backgroundColor = "white";
     
     if(maxSec == ""){
         console.log("RETURN");
+        stop.click();
         return;
     }
     if(minSec == ""){
         console.log("RETURN");
+        stop.click();
         return;
     }
-    
+
+
+    // console.log("WARNNING" + warning);
+    // console.log("MINSEC" + minSec);
+    if(warning > minSec){
+        warning = minSec;
+    }
+
+    //if minSec is 5 or something
+    if(warning <= baseline){
+        baseline = 0;
+    }
+
+    //randomize warning
+    warning =  (Math.random() * (warning - baseline)) + baseline;
+
+    console.log(warning);
+    console.log(baseline);
+
     start.style.visibility = "hidden";
     stop.style.visibility = "visible";
 
     var maxSec = parseInt(maxSec);
     var minSec = parseInt(minSec);
+
+
+    if(minSec > maxSec){
+        console.log(minSec);
+        console.log(maxSec);
+        alert("Minimum seconds can not be greater than maximum seconds.");
+        stop.click()
+        return;
+    }
 
     console.log(maxSec);
     var time = minSec + Math.floor(Math.random() * (maxSec-minSec + 1));
@@ -72,7 +110,10 @@ function startCountdown(){
     mins.innerHTML = minutes;
     secs.innerHTML = seconds;
 
+    banjo.play();
     countdownMin();
+
+
 }
 
 var redFlash;
@@ -90,7 +131,7 @@ function countdownMin(){
             if(minute>0){
                 red = false;
                 opacity = 0;
-                body.style.backgroundColor = "rgba(255,0,0,0)";
+                // body.style.backgroundColor = "rgba(255,0,0,0)";
                 clearInterval(redFlash);
                 seconds = 59;
                 secs.innerHTML = seconds;
@@ -99,20 +140,25 @@ function countdownMin(){
                     minute = "0" + minute;                    
                 }
                 mins.innerText = minute;
+                runOut = seconds;
+
 
             }
             else{
-                red = false;
+                // red = false;
                 clearInterval(x);
-                clearInterval(redFlash);
-                
+                // clearInterval(redFlash); 
                 flashLights();
             }
         }
         else{
-            if(!red && seconds < warning){
+            if(minute>0){
+                console.log("zero min");
+                red = false;
+            }
+            else if(!red && seconds < warning){
+                console.log("starting red change")
                 red = true;
-                opacity = 0;
                 startColors();
             }
             
@@ -122,6 +168,7 @@ function countdownMin(){
             }
             secs.innerHTML = seconds;
             seconds = parseInt(seconds);
+            runOut = seconds;
         }
 
     }, 1000); 
@@ -129,6 +176,7 @@ function countdownMin(){
     stop.addEventListener("click", function(){
         clearInterval(x)
         clearInterval(redFlash);
+        banjo.pause();
         start.style.visibility = "visible";
         stop.style.visibility = "hidden";
         body.style.backgroundColor = "white";
@@ -137,19 +185,30 @@ function countdownMin(){
 
 function startColors(){
 
-    var rand = Math.random()*4 + 5;
+    // var rand = Math.random()*4 + 5;
     // var howManyTimesRand = 1/rand;
 
-    var opacityRate = 1/rand;
-    var times = warning * 1000 *opacityRate;
-    console.log(rand);
-    console.log(opacityRate);
-    console.log(times);
-    // var time = Math.random()*(16);
-    redFlash = setInterval( function(){
-        opacity = opacity + opacityRate; 
-        body.style.backgroundColor = "rgba(255,0,0," + opacity + ")";
-    }, times);
+    // var opacityRate = 1/rand;
+    // var times = warning * 1000 *opacityRate;
+    // console.log(rand);
+    // console.log(opacityRate);
+    // console.log(times);
+    // // var time = Math.random()*(16);
+    // redFlash = setInterval( function(){
+    //     opacity = opacity + opacityRate; 
+    //     body.style.backgroundColor = "rgba(255,0,0," + opacity + ")";
+    // }, times);
+    opacity = 0;
+    count = 0; 
+    console.log(warning);
+    var opacityChange = 0.01;
+    redFlash = setInterval(function(){
+        count++;
+        opacity = opacity + opacityChange;
+        body.style.backgroundColor = "rgba(255,0,0,"+opacity+")";
+        // console.log(body.style.backgroundColor);
+    }, warning * opacityChange * 1000-10);
+    // }, 50);
     
 }
 
@@ -157,5 +216,7 @@ function flashLights(){
     body.style.backgroundColor = "rgba(255,0,0,1)";
     stop.click();
     alert("TIMES UP");
+    // clearInterval(redFlash);
+    console.log(count);
 
 }
