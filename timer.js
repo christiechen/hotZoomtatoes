@@ -3,11 +3,16 @@ var warning;
 var runOut = 0;
 var count = 0;
 var baseline = 5;
+var imageWidthDefault = 70;
+var imageWidth;
+
 
 var banjo = document.getElementById("banjo");
-banjo.volume = 0.3;
+banjo.volume = 0.2;
 var mins = document.getElementById("minutes");
 var secs = document.getElementById("seconds");
+var pLeft = document.getElementById("potatoLeft");
+var pRight = document.getElementById("potatoRight");
 var stop = document.getElementById("stopButton");
 stop.style.visibility = "hidden";
 var body = document.getElementById("body");
@@ -35,11 +40,15 @@ document.getElementById("coverButton").addEventListener("click", function(){
 function startCountdown(){
     warning = warningDefault;    
 
-    console.log("here");
+   
+
+    // console.log("here");
     
     var maxSec = document.getElementById("maxSeconds").value;
     var minSec = document.getElementById("minSeconds").value;
     body.style.backgroundColor = "white";
+
+    // imageWidthDefault = 
     
     if(maxSec == ""){
         console.log("RETURN");
@@ -64,7 +73,7 @@ function startCountdown(){
         baseline = 0;
     }
 
-    //randomize warning
+    //randomize the warning level to be between the baseline and the warning level
     warning =  (Math.random() * (warning - baseline)) + baseline;
 
     console.log(warning);
@@ -72,6 +81,15 @@ function startCountdown(){
 
     start.style.visibility = "hidden";
     stop.style.visibility = "visible";
+
+
+
+    imageWidth = imageWidthDefault;
+    pRight.style.width = imageWidth + "px";
+    pLeft.style.width = imageWidth + "px";
+
+    pRight.style.visibility = "visible";
+    pLeft.style.visibility = "visible";
 
     var maxSec = parseInt(maxSec);
     var minSec = parseInt(minSec);
@@ -180,6 +198,11 @@ function countdownMin(){
         start.style.visibility = "visible";
         stop.style.visibility = "hidden";
         body.style.backgroundColor = "white";
+        imageWidth = imageWidthDefault;
+        pRight.style.width = imageWidth + "px";
+        pLeft.style.width = imageWidth + "px";
+        pRight.style.visibility = "hidden";
+        pLeft.style.visibility = "hidden";
     }, false)
 }
 
@@ -202,9 +225,15 @@ function startColors(){
     count = 0; 
     console.log(warning);
     var opacityChange = 0.01;
+    var imageWidthChange = 10;
     redFlash = setInterval(function(){
         count++;
         opacity = opacity + opacityChange;
+        imageWidth = imageWidth + imageWidthChange;
+
+        pLeft.style.width = imageWidth + "px";
+        pRight.style.width = imageWidth + "px";
+
         body.style.backgroundColor = "rgba(255,0,0,"+opacity+")";
         // console.log(body.style.backgroundColor);
     }, warning * opacityChange * 1000-10);

@@ -49,3 +49,21 @@ input{
 #stopButton, #startTimer{
     margin-top: 10px;
 }
+
+#potatoLeft{
+    position: absolute;
+    z-index: -2;
+    left:50px;
+    top:50px;
+    width:70px;
+    visibility: hidden;
+}
+
+#potatoRight{
+    position: absolute;
+    z-index: -2;
+    right:50px;
+    top:50px;
+    width:70px;
+    visibility: hidden;
+}
