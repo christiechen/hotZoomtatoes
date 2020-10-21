@@ -43,7 +43,7 @@ input{
 #timer{
     position:relative;
     bottom:140px;
-    z-index: -3;
+    z-index: -1;
     width:fit-content;
     height: fit-content;
     /* border:1px solid black ; */
