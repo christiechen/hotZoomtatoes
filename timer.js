@@ -9,6 +9,9 @@ var imageWidth;
 
 var banjo = document.getElementById("banjo");
 banjo.volume = 0.3;
+var expl = document.getElementById("explosion");
+expl.volume = 0.1;
+
 var mins = document.getElementById("minutes");
 var secs = document.getElementById("seconds");
 var pLeft = document.getElementById("potatoLeft");
@@ -16,8 +19,28 @@ var pRight = document.getElementById("potatoRight");
 var stop = document.getElementById("stopButton");
 stop.style.visibility = "hidden";
 var body = document.getElementById("body");
+var potatoes = document.getElementsByClassName("potatoes");
+
+var instructionButton = document.getElementById("instructions");
+var instructions = document.getElementById("instructionText");
+
+instructionButton.addEventListener("click", function(){
+    
+    var vis = instructions.style.visibility;
+    if(vis == "visible"){
+        vis = "hidden";
+    }
+    else{
+        vis = "visible";
+    }
+    instructions.style.visibility = vis;
+    console.log(vis);
+}, false)
+
 
 var start = document.getElementById("startTimer");
+
+
 start.addEventListener("click", function(){
     startCountdown();
 }, false);
@@ -46,7 +69,6 @@ function startCountdown(){
     
     var maxSec = document.getElementById("maxSeconds").value;
     var minSec = document.getElementById("minSeconds").value;
-    body.style.backgroundColor = "white";
 
     // imageWidthDefault = 
     
@@ -68,9 +90,9 @@ function startCountdown(){
         warning = minSec;
     }
 
-    //if minSec is 5 or something
-    if(warning <= baseline){
-        baseline = 0;
+    //if minSec is 5 or below
+    if(warning < baseline){
+        baseline = 1;
     }
 
     //randomize the warning level to be between the baseline and the warning level
@@ -78,10 +100,14 @@ function startCountdown(){
 
     console.log(warning);
     console.log(baseline);
+    body.style.backgroundColor = "#ffd966";
 
     start.style.visibility = "hidden";
     stop.style.visibility = "visible";
 
+    for(var i =0; i<potatoes.length; i++){
+        potatoes[i].style.visibility = "hidden";
+    }
 
 
     
@@ -97,6 +123,7 @@ function startCountdown(){
         stop.click()
         return;
     }
+
 
 
     imageWidth = imageWidthDefault;
@@ -132,7 +159,8 @@ function startCountdown(){
     }
     mins.innerHTML = minutes;
     secs.innerHTML = seconds;
-
+    
+    banjo.currentTime = 0;
     banjo.play();
     countdownMin();
 
@@ -140,6 +168,7 @@ function startCountdown(){
 }
 
 var redFlash;
+var x;
 
 function countdownMin(){
     var red = false;
@@ -148,7 +177,7 @@ function countdownMin(){
     console.log("hello");
     var cont = true;
 
-    var x = 
+    x = 
         setInterval(function(){
         if(seconds == 0){
             if(minute>0){
@@ -201,12 +230,15 @@ function countdownMin(){
         banjo.pause();
         start.style.visibility = "visible";
         stop.style.visibility = "hidden";
-        body.style.backgroundColor = "white";
+        body.style.backgroundColor = "#ffd966";
         imageWidth = imageWidthDefault;
         pRight.style.width = imageWidth + "px";
         pLeft.style.width = imageWidth + "px";
         pRight.style.visibility = "hidden";
         pLeft.style.visibility = "hidden";
+        for(var i =0; i<potatoes.length; i++){
+            potatoes[i].style.visibility = "visible";
+        }
     }, false)
 }
 
@@ -247,8 +279,14 @@ function startColors(){
 
 function flashLights(){
     body.style.backgroundColor = "rgba(255,0,0,1)";
-    stop.click();
-    alert("TIMES UP");
+    clearInterval(x)
+    clearInterval(redFlash);
+    banjo.pause();
+    start.style.visibility = "visible";
+    stop.style.visibility = "hidden";
+    expl.currentTime = 0;
+    expl.play()
+    setTimeout(function(){expl.pause()}, 3000);
     // clearInterval(redFlash);
     console.log(count);
 

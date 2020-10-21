@@ -1,18 +1,23 @@
 *{
-    /* font-size:px; */
+    font-family: 'Alfa Slab One', cursive;
+}
+
+#body{
+    background-color: #ffd966;
 }
 
 #everything{
     height: fit-content;
     width:fit-content;
     /* border:1px solid red; */
-    margin-top:250px;
+    margin-top:390px;
 
 }
 
 input{
     display:block;
     width:150px;
+    height:30px;
     text-align: center;
 }
 
@@ -36,6 +41,9 @@ input{
 }
 
 #timer{
+    position:relative;
+    bottom:140px;
+    z-index: -3;
     width:fit-content;
     height: fit-content;
     /* border:1px solid black ; */
@@ -43,10 +51,14 @@ input{
 }
 
 #cover{
-    position: absolute;
-    width:310px;
+    /* position: absolute; */
+    width:420px;
     height:130px;
-    background-color: grey;
+    /* top:800px; */
+    /* left:20px; */
+    /* margin-left: -10%; */
+    background-color: #ffd966;
+    border:2px solid white;
     border-radius: 15px;
 }
 
@@ -79,4 +91,89 @@ button{
     background-color: #fae6e1;
     border: none;
     border-radius:20px;
+    margin-top:-80px;
+    outline:none;
+
+}
+
+
+#title{
+    position:relative;
+    width:50%;
+    margin-left: 25%;
+    /* margin-right: auto; */
+    margin-bottom: -350px;
+    /* margin-top:-90px; */
+    bottom:50px;
+}
+
+.potatoes{
+    /* width:100px; */
+    position:absolute;
+
+}
+
+#liltate1{
+    /* left:40px; */
+    width:12%;
+    left:15%;
+    top:40%;
+    /* border:1px solid green; */
+}
+
+
+#liltate2{
+    width:10%;
+    right:10%;
+    top:15%;
+}
+#liltate3{
+    width:5%;
+    top:40%;
+}
+#liltate4{
+    width: 15%;
+    top:60%;
+}
+#liltate5{
+    width:15%;
+    top:70%;
+    left:5%;
+
+    transform: rotate(90deg);
+}
+#liltate6{
+    width:7%;
+    top:10%;
+    left:10%;
+    transform: rotate(50deg);
+}
+
+#instructions{
+    font-size:1em;
+    position:relative;
+    left:20px;
+    top:20px;
+    margin-top:auto;
+    border-radius:10px;
+
+}
+
+#instructionText{
+    position: absolute;
+    left:28px;
+    top:70px;
+    width:300px;
+    padding:10px;
+    padding-bottom:55px;
+    border-radius:10px;
+    border-top-left-radius: 0px;
+    height:700px;
+    background-color: #fae6e1;
+    overflow-y: scroll;
+    visibility: hidden;
+}
+
+button:active{
+    background-color: #fff7e0;
 }
